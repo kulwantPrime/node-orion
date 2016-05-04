@@ -1,0 +1,13 @@
+{
+	"orion": {
+		"db": {
+			"connectionLimit": 10,
+			"host": "52.90.222.236",
+			"user": "root",
+			"password": "paxcel@123",
+			"database": "orion"
+		},
+		"allowed-origins": ["http://localhost:8080", "http://localhost:9994"],
+		"req-logger" : "dev"
+	}
+}

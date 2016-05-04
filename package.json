@@ -1,0 +1,23 @@
+{
+  "name": "orion-api",
+  "version": "1.0.0",
+  "private": true,
+  "dependencies": {
+    "body-parser": "*",
+    "cors": "^2.7.1",
+    "express": "4.13.1",
+    "express-session": "1.13.0",
+    "file-stream-rotator": "0.0.6",
+    "jsonwebtoken": "^5.7.0",
+    "morgan": "^1.7.0",
+    "ms": "^0.7.1",
+    "mysql": "2.10.2",
+    "request": "^2.72.0",
+    "socket.io": "*"
+  },
+  "scripts": {
+    "start": "nodemon app.js prop=dev",
+    "dev": "nodemon app.js prop=dev",
+    "prod": "node app.js prop=prod"
+  }
+}
