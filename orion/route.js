@@ -37,8 +37,8 @@ app.post('/saveModel',function(req,res){
 			response.statusResponse = "success";
 			response.msg = data;
 		}
-		
 		res.send(response);
+		res.end();
 	}
 	modalService.saveModal(data,cb);
 });
