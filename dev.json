@@ -7,6 +7,7 @@
 			"password": "paxcel@123",
 			"database": "orion"
 		},
+		"api-logging" : true,
 		"allowed-origins": ["http://localhost:8080", "http://localhost:9994"],
 		"req-logger" : "dev"
 	}

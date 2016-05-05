@@ -44,39 +44,62 @@ var corsOptions = {
 		credentials : true
 };
 
-console.log(corsOptions.origin);
 
-
-// use other middlewares for app will come here
-
+/*
+ * use other middlewares for app will come here
+ *
+*/
 app.use(expressSession(sessionOptions));
 app.use(cors(corsOptions));
 
+console.log("===========================================================");
+console.log("API Logging status");
 
-if(config.env === "dev"){
-	app.use(reqLogger(prop.orion["req-logger"]));	
+if(!!prop.orion["api-logging"] && !prop.orion["api-logging"]){
+	
+	console.log("You have turned off the API Logging");
+	console.log("To Turn it on, please use api-logging variable in application properties file");
+	
 }else{
 	
-	var FileStreamRotator = require('file-stream-rotator');
-	var fs = require('fs');
-	var logDirectory = !!prop.orion["req-logger-path"] ? prop.orion["req-logger-path"]:__dirname + '/log';
+	console.log("API Logging turned ON");
+	console.log("To Turn it off, please delete api-logging variable in application properties file or set it's status to false");
 	
-	console.log("Application logging happens at");
-	console.log(logDirectory);
-	
-	// ensure log directory exists
-	fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
-
-	// create a rotating write stream
-	var accessLogStream = FileStreamRotator.getStream({
-	  date_format: 'YYYYMMDD',
-	  filename: logDirectory + '/access-%DATE%.log',
-	  frequency: 'daily',
-	  verbose: false
-	})
-
-	app.use(reqLogger(prop.orion["req-logger"], {stream: accessLogStream}));
+	if(config.env === "dev"){
+		
+		console.log("===========================================================");
+		console.log("TERMINAL Logging");
+		app.use(reqLogger(prop.orion["req-logger"]));
+		console.log("===========================================================");
+		
+	}else{
+		
+		var FileStreamRotator = require('file-stream-rotator');
+		var fs = require('fs');
+		var logDirectory = !!prop.orion["req-logger-path"] ? prop.orion["req-logger-path"]:__dirname + '/log';
+		
+		console.log("===========================================================");
+		
+		console.log("Directory path for API logging : ----");
+		console.log(logDirectory);
+		console.log("===========================================================");
+		
+		// ensure log directory exists
+		fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory);
+		
+		// create a rotating write stream
+		var accessLogStream = FileStreamRotator.getStream({
+			date_format: 'YYYYMMDD',
+			filename: logDirectory + '/access-%DATE%.log',
+			frequency: 'daily',
+			verbose: false
+		})
+		
+		app.use(reqLogger(prop.orion["req-logger"], {stream: accessLogStream}));
+	}
 }
+
+
 exports.app = app;
 exports.jwt = {
 	"sign" : function(data,cb){

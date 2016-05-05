@@ -34,15 +34,15 @@ var saveModal = function(data,cb){
 		}else{
 			
 			if(!!data.modelDetail && data.modelDetail.length > 0){
-				console.log(data.modelDetail);
+				
 				/*data.modelDetail.data = data.modelDetail
 				JSON.stringify(data.modelDetail);
 				data.modelDetail = JSON.parse(data.modelDetail).data;
 				console.log("printing model detail data");
 				console.log(data.modelDetail);*/
-				console.log("=================================");
+				
 				data.modelId = modal.insertId
-				console.log(data.modelId = modal.insertId);
+				
 				saveActualModal(data,function(err,modalDetailStatus){
 					if(err){
 						response.msg = err;
@@ -105,7 +105,7 @@ var saveBaseModal = function(data,cb){
 				cb(err,null);
 				return console.log(err);
 			}
-			console.log(row);
+//			console.log(row);
 			cb(null,row);
 	});
 }
@@ -149,7 +149,7 @@ var saveActualModalLevel = function(data,cb){
 			console.log(err);
 			return cb(err,null); 
 		}
-		console.log(row);
+//		console.log(row);
 		cb(null,row);
 	});
 }
@@ -160,8 +160,8 @@ var saveActualModal = function(data,cb,count){
 			msg : "no model detail"
 	}
 	var i = !count ?  0 : count;
-	console.log("printing data");
-	console.log(data);
+	/*console.log("printing data");
+	console.log(data);*/
 	if(!!data.modelDetail[i] && data.modelDetail.length > 0 && i <= data.modelDetail.length){
 		var modeldetail = data.modelDetail[i];
 		modeldetail["modelId"] = data.modelId;
@@ -184,8 +184,8 @@ var getModal = function(pagination,cb){
 	  // console.log(err);
 		var limit = pagination.count;
 		var offset = (pagination.pageNumber - 1)*limit;
-		console.log(limit);
-		console.log(offset);	
+		/*console.log(limit);
+		console.log(offset);*/	
 		db.query('SELECT * from models left outer join modeldetails on models.Id = modeldetails.ModelId limit ? offset ?',[limit,offset],function(err,row){
 			if(err){
 				console.log(err);

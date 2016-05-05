@@ -9,6 +9,7 @@
 		},
 		"allowed-origins": "http://localhost:8080",
 		"req-logger" : "combined",
-		"req-logger-path" : "/var/log/orion/"
+		"req-logger-path" : "/var/log/orion/",
+		"api-logging" : false,
 	}
 }
