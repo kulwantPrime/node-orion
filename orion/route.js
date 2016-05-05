@@ -23,8 +23,8 @@ app.get('/',function(req,res){
 app.post('/saveModel',function(req,res){
 	console.log('req came');
 	var data = req.body;
-	console.log(data.status);
-	console.log(JSON.parse(JSON.stringify(data)));
+	/*console.log(data.status);
+	console.log(JSON.parse(JSON.stringify(data)));*/
 	var response = {
 			statusResponse : "error",
 			msg : null

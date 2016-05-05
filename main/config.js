@@ -52,10 +52,11 @@ var corsOptions = {
 app.use(expressSession(sessionOptions));
 app.use(cors(corsOptions));
 
+console.log(!prop.orion["api-logging"]);
 console.log("===========================================================");
 console.log("API Logging status");
 
-if(!!prop.orion["api-logging"] && !prop.orion["api-logging"]){
+if(prop.orion["api-logging"] == null || !prop.orion["api-logging"]){
 	
 	console.log("You have turned off the API Logging");
 	console.log("To Turn it on, please use api-logging variable in application properties file");
