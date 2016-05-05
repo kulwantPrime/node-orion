@@ -26,7 +26,7 @@ var saveModal = function(data,cb){
 			msg : null
 	}
 	
-	saveBaseModal(data,function(err,modal){
+	saveBaseModal1(data,function(err,modal){
 		if(err){
 			response.msg = err;
 			cb(err,response);
@@ -42,7 +42,7 @@ var saveModal = function(data,cb){
 				console.log(data.modelDetail);*/
 				
 				data.modelId = modal.insertId
-				
+
 				saveActualModal(data,function(err,modalDetailStatus){
 					if(err){
 						response.msg = err;
@@ -110,6 +110,38 @@ var saveBaseModal = function(data,cb){
 	});
 }
 
+var saveBaseModal1 = function(data,cb){
+	db.getConnection(function(err,connection){
+		if(err){
+			cb(err,null);
+			return console.log(err);
+		}
+		connection.query('INSERT INTO models SET ?',
+				{
+					Name : data.name,
+					/*IsDynamic : data.isDynamic,*/
+					Status : data.status,
+					CommunityId : data.communityId,
+					ownerId : data.ownerId,
+					AccessLevel : data.accessLevel,
+					IsDeleted : data.isDeleted,
+					CreatedDate : data.createdDate,
+					CreatedBy : data.createdBy,
+					UpdatedDate : data.updatedDate,
+					UpdatedBy : data.updatedBy
+				}
+				,function(err,row){
+					connection.release();
+					if(err){
+						cb(err,null);
+						return console.log(err);
+					}
+			//		console.log(row);
+					cb(null,row);
+				});
+	});
+}
+
 
 /*
  * id,
@@ -154,6 +186,40 @@ var saveActualModalLevel = function(data,cb){
 	});
 }
 
+var saveActualModalLevel1 = function(data,cb){
+	db.getConnection(function(err,connection){
+		if(err){
+			cb(err,null);
+			return console.log(err);
+		}
+		connection.query('INSERT INTO modeldetails SET ?',
+		{
+			ModelId : data.modelId,
+			ParentId : data.parentId,
+			AssetType : data.assetType,
+			/*Level : data.level, */
+			ToleranceLower : data.toleranceLower,
+			ToleranceUpper : data.toleranceUpper,
+			RebalancePriority : data.rebalancePriority,
+			IsDeleted : data.isDeleted,
+			CreatedDate : data.createdDate,
+			CreatedBy : data.createdBy,
+			UpdatedDate : data.updatedDate,
+			UpdatedBy : data.updatedBy
+		}
+		,function(err,row){
+			connection.release();
+			if(err){
+				console.log(err);
+				return cb(err,null); 
+			}
+//		console.log(row);
+			cb(null,row);
+		});
+
+	})
+}
+
 var saveActualModal = function(data,cb,count){
 	var response = {
 			status : 0,
@@ -165,7 +231,7 @@ var saveActualModal = function(data,cb,count){
 	if(!!data.modelDetail[i] && data.modelDetail.length > 0 && i <= data.modelDetail.length){
 		var modeldetail = data.modelDetail[i];
 		modeldetail["modelId"] = data.modelId;
-		saveActualModalLevel(data.modelDetail[i],function(err,row){
+		saveActualModalLevel1(data.modelDetail[i],function(err,row){
 			if(err){
 				console.log(err);
 				return cb(err,null);
