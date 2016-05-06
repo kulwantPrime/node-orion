@@ -24,9 +24,9 @@ var saveModal = function(data,cb){
 	var response = {
 			status : 0,
 			msg : null
-	}
+	};
 	
-	saveBaseModal1(data,function(err,modal){
+	saveBaseModal(data,function(err,modal){
 		if(err){
 			response.msg = err;
 			cb(err,response);
@@ -41,7 +41,7 @@ var saveModal = function(data,cb){
 				console.log("printing model detail data");
 				console.log(data.modelDetail);*/
 				
-				data.modelId = modal.insertId
+				data.modelId = modal.insertId;
 
 				saveActualModal(data,function(err,modalDetailStatus){
 					if(err){
@@ -66,7 +66,7 @@ var saveModal = function(data,cb){
 		}
 	});
 	
-}
+};
 
 /*
  * id,
@@ -108,7 +108,7 @@ var saveBaseModal = function(data,cb){
 //			console.log(row);
 			cb(null,row);
 	});
-}
+};
 
 var saveBaseModal1 = function(data,cb){
 	db.getConnection(function(err,connection){
@@ -140,7 +140,7 @@ var saveBaseModal1 = function(data,cb){
 					cb(null,row);
 				});
 	});
-}
+};
 
 
 /*
@@ -184,7 +184,7 @@ var saveActualModalLevel = function(data,cb){
 //		console.log(row);
 		cb(null,row);
 	});
-}
+};
 
 var saveActualModalLevel1 = function(data,cb){
 	db.getConnection(function(err,connection){
@@ -217,32 +217,32 @@ var saveActualModalLevel1 = function(data,cb){
 			cb(null,row);
 		});
 
-	})
-}
+	});
+};
 
 var saveActualModal = function(data,cb,count){
 	var response = {
 			status : 0,
 			msg : "no model detail"
-	}
+	};
 	var i = !count ?  0 : count;
 	/*console.log("printing data");
 	console.log(data);*/
 	if(!!data.modelDetail[i] && data.modelDetail.length > 0 && i <= data.modelDetail.length){
 		var modeldetail = data.modelDetail[i];
-		modeldetail["modelId"] = data.modelId;
-		saveActualModalLevel1(data.modelDetail[i],function(err,row){
+		modeldetail.modelId = data.modelId;
+		saveActualModalLevel(data.modelDetail[i],function(err,row){
 			if(err){
 				console.log(err);
 				return cb(err,null);
 			}else{
 				saveActualModal(data,cb,++i);
 			}
-		})		
+		});		
 	}else{
 		cb(null,response);
 	}
-}
+};
 
 var getModal = function(pagination,cb){
 	// db.getConnection(function(err, connection) {
@@ -260,7 +260,7 @@ var getModal = function(pagination,cb){
 			cb(row);
 		});
 	// });
-}
+};
 
 
 
