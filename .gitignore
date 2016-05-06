@@ -2,3 +2,4 @@
 /.tern-project
 /.jshintrc
 /.settings
+/node_modules

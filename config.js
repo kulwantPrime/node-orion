@@ -15,15 +15,16 @@ exports.sessionsecret = "orioneclipse";
 process.argv.forEach(function (val, index, array) {
   /*console.log(index + ': ' + val);*/
   var arg = val.split("=");
-  if(arg.length > 0)
+  if(arg.length > 0){
 	  if(arg[0] === 'prop'){
 		  
-		console.log("===========================================================");
-		console.log("Using " + arg[1] + ".json File and it's content is" );
-		console.log(require('./'+arg[1]+'.json'));
-		console.log("===========================================================");
-		exports.prop = require('./'+arg[1]+'.json');
-		exports.env = arg[1];
-		
-	  }
+		  console.log("===========================================================");
+		  console.log("Using " + arg[1] + ".json File and it's content is" );
+		  console.log(require('./'+arg[1]+'.json'));
+		  console.log("===========================================================");
+		  exports.prop = require('./'+arg[1]+'.json');
+		  exports.env = arg[1];
+		  
+	  }	  
+  }
 });
