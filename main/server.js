@@ -11,4 +11,4 @@ exports.startServer = function(PORT){
 	
 	app.listen(PORT);
 	
-}
+};

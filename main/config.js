@@ -33,11 +33,12 @@ var sessionOptions = {
 		/*
 		 * whenever new session is created store it in sessions store even if no data is associated with it 
 		 * if set to true, than when just hits the server new session is created and stored in session store
+		 * when set to false, no new cookie is created even client just hits the server.
 		 * 
 		*/
 
 		saveUninitialized : false
-}
+};
 
 var corsOptions = {
 		origin: prop.orion["allowed-origins"],
@@ -56,7 +57,7 @@ console.log(!prop.orion["api-logging"]);
 console.log("===========================================================");
 console.log("API Logging status");
 
-if(prop.orion["api-logging"] == null || !prop.orion["api-logging"]){
+if(prop.orion["api-logging"] === null || !prop.orion["api-logging"]){
 	
 	console.log("You have turned off the API Logging");
 	console.log("To Turn it on, please use api-logging variable in application properties file");
@@ -94,7 +95,7 @@ if(prop.orion["api-logging"] == null || !prop.orion["api-logging"]){
 			filename: logDirectory + '/access-%DATE%.log',
 			frequency: 'daily',
 			verbose: false
-		})
+		});
 		
 		app.use(reqLogger(prop.orion["req-logger"], {stream: accessLogStream}));
 	}
@@ -107,6 +108,11 @@ exports.jwt = {
 		var token;
 		var err=null;
 		try{
+			
+			/*
+			 * This too can asynchronous.
+			 * 
+			 */
 			token = jwt.sign(data,sessionkey);
 		}catch(error){
 			err = err;

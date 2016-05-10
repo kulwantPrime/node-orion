@@ -28,7 +28,7 @@ app.post('/saveModel',function(req,res){
 	var response = {
 			statusResponse : "error",
 			msg : null
-	}
+	};
 	var cb = function(err,data){
 		if(err){
 			response.msg = err;
@@ -39,7 +39,7 @@ app.post('/saveModel',function(req,res){
 		}
 		res.send(response);
 		res.end();
-	}
+	};
 	modalService.saveModal(data,cb);
 });
 
@@ -47,13 +47,13 @@ app.get('/model',function(req,res){
 	 var pagination = {
 	   'pageNumber' : req.query.pageNumber,
 	   'count' : req.query.count
-	 }
+	 };
 	 console.log(pagination);
 	 var cb = function(data){
 	  return res.send(data);
 	 };
 	 modalService.getModal(pagination,cb);
-	});
+});
 
 // token from api will be stored in server side for use by eclipse 
 app.post('/loginConnect',function(req,res){
@@ -63,7 +63,7 @@ app.post('/loginConnect',function(req,res){
 	var user = {
 		'name' : req.body.username,
 		'pass' : req.body.password
-	}
+	};
 	var url = {
 			url: ORION.APIS.USER_AUTH,
 			headers: {
@@ -79,7 +79,7 @@ app.post('/loginConnect',function(req,res){
 		message = 'User Found';
 		return res.send({resultStatus : statusResponse, msg : data});
 	});
-})
+});
 
 app.post('/userDetails',function(req,res){
 	console.log(req.body);
@@ -87,7 +87,7 @@ app.post('/userDetails',function(req,res){
 	var message = 'User Not Found';
 	var user = {
 		'token' : req.body.token
-	}
+	};
 	var url = {
 			url: ORION.APIS.USER_DETAIL,
 			headers: {
@@ -103,14 +103,14 @@ app.post('/userDetails',function(req,res){
 		message = 'User Found';
 		return res.send({resultStatus : statusResponse, msg : data});
 	});
-})
+});
 
 app.post('/login',function(req,res){
 	console.log(req.body);
 	var user = {
 		'name' : req.body.username,
 		'pass' : req.body.password
-	}
+	};
 	var cb = function(err,data){
 		if(err){
 			return res.status(500).send({responseStatus:'error',msg:err});
@@ -131,9 +131,9 @@ app.post('/login',function(req,res){
 			console.log(err);
 			return res.send({resultStatus : statusResponse, msg : message, token : token});			
 		});
-	}
+	};
 	userService.checkUser(user,cb);
-})
+});
 
 
 app.get('/checkAuthenticationToken',function(req,res){
@@ -142,7 +142,7 @@ app.get('/checkAuthenticationToken',function(req,res){
 	var message = 'access denied';
 	
 	/*var token = req.body.token || req.query.token || req.headers['Authorization'];*/
-	var token = req.headers['authorization'];
+	var token = req.headers.authorization;
 	
 	// decode token
 	if (token) {
@@ -164,7 +164,7 @@ app.get('/checkAuthenticationToken',function(req,res){
 	  }else{
 		return  res.send({responseStatus:responseStatus,msg : message});
 	  }
-})
+});
 
 app.use(function(req,res,next){
 	
@@ -177,7 +177,7 @@ app.use(function(req,res,next){
 		res.status(403).send({responseStatus:responseStatus,msg : message});
 	}
 
-})
+});
 
 
 app.post('/checkAuthentication',function(req,res){
@@ -186,15 +186,15 @@ app.post('/checkAuthentication',function(req,res){
 	var message = 'Authenticated';
 
 	res.send({responseStatus:responseStatus,msg : message});
-})
+});
+
 app.get('/checkAuthentication',function(req,res){
 
 	var responseStatus = 'success';
 	var message = 'Authenticated';
 	
 	res.send({responseStatus:responseStatus,msg : message});
-})
-
+});
 
 app.get('/logout',function(req,res){
 	
@@ -209,6 +209,6 @@ app.get('/logout',function(req,res){
 		message = 'User loggedout';
 		res.send({responseStatus:responseStatus,msg : message});
 	});
-})
+});
 
 module.exports = app;
