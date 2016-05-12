@@ -2,12 +2,12 @@
 	"orion": {
 		"db": {
 			"connectionLimit": 10,
-			"host": "52.90.222.236",
+			"host": "localhost",
 			"user": "root",
 			"password": "paxcel@123",
-			"database": "orion"
+			"database": "hibernate"
 		},
-		"api-logging" : true,
+		"api-logging" : false,
 		"allowed-origins": ["http://localhost:8080", "http://localhost:9994"],
 		"req-logger" : "dev"
 	}
