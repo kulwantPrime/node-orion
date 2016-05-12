@@ -2,7 +2,7 @@
  * Port to run Node server on
  * 
 */
-exports.PORT = 3000;
+exports.PORT = 3001;
 
 /*
  * session secret used in case of express session 

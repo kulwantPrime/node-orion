@@ -18,3 +18,4 @@ var db = mysql.createPool({
 });
 
 module.exports = db;*/
+exports.prop = require('./../main/config.js').prop;

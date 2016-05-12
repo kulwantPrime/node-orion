@@ -2,10 +2,10 @@
  *main server config file
  */
 
-var config = require("./../config.js");
+var config = require("./../ApplicationConstants.js");
 var sessionkey = config.sessionsecret;
-var prop = config.prop;
-
+var prop = exports.prop = config.prop;
+console.log(module.exports);
 var express = require('express');
 var cors = require('cors');
 var expressSession =  require('express-session');

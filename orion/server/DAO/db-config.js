@@ -1,5 +1,5 @@
 // Database configuration
-var DaoConfig = require('./../../../config.js').prop.orion.db;
+var DaoConfig = require('./../../config.js').prop.orion.db;
 
 var mysql = require('mysql');
 
