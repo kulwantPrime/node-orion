@@ -2,7 +2,7 @@ module.exports = function(grunt){
 
   grunt.initConfig({
 	clean : {
-		  dist:'./orion/client/build/**/*'
+		  dist:['./orion/client/build/**/*','build']
 	},
     pkg: grunt.file.readJSON('package.json'),
 	banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> <%= pkg.contexts.first %> */\n',
@@ -78,8 +78,14 @@ module.exports = function(grunt){
 		      archive: 'build.zip'
 		    },
 		    files: [
-		      {src: ['app.js']}
-		    ]
+			  {expand:true,src: ['main/**/*'], dest: '../build/'}, // includes files in path
+			  {expand:true,src: ['test/**/*'], dest: '../build/'}, // includes files in path and its subdirs
+			  
+			  {expand: true, src: ['orion/server/**/*'], dest: '../build/'}, // makes all src relative to cwd
+			  {expand: true, src: ['orion/*'], dest: '../build/',filter:'isFile'}, // makes all src relative to cwd
+			  {expand: true, src: ['orion/client/build/**/*'], dest: '../build/'}, // makes all src relative 
+			  {expand: true, src: ['*'], dest: '../build/',filter:'isFile'}, // makes all src relative  single level
+			]
 		  }
 		}
   });
@@ -92,6 +98,6 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-compress');
   
   grunt.registerTask('default', ['clean','uglify', 'cssmin', 'processhtml','compress']);
-  grunt.registerTask('compress', ['compress']);
+  grunt.registerTask('build', ['compress']);
 
 };
