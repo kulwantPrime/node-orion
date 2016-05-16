@@ -2,7 +2,7 @@
  * 
  */
 
-var db = require('./db-config.js');
+var db = require('./db-config.js').db;
 
 /*
  * {

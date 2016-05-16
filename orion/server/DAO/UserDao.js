@@ -1,4 +1,4 @@
-var db = require('./db-config.js');
+var db = require('./db-config.js').db;
 
 var getUserList = function(cb){
 	// db.getConnection(function(err, connection) {
