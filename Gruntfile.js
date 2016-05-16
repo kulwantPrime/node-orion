@@ -28,7 +28,7 @@ module.exports = function(grunt){
     uglify: {
       options: {
     	soureMap: true,
-		compress: true,
+		//compress: true,
 		mangle:true,
 		sourceMapIn: '<%= path.dest.js %>.map',
         banner: '<%= banner %>',
