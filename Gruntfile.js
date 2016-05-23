@@ -84,6 +84,7 @@ module.exports = function(grunt){
 			  {expand: true, src: ['orion/server/**/*'], dest: '../build/'}, // makes all src relative to cwd
 			  {expand: true, src: ['orion/*'], dest: '../build/',filter:'isFile'}, // makes all src relative to cwd
 			  {expand: true, src: ['orion/client/build/**/*'], dest: '../build/'}, // makes all src relative 
+			  {expand: true, src: ['orion/client/index.html'], dest: '../build/'}, // makes all src relative 
 			  {expand: true, src: ['*'], dest: '../build/',filter:'isFile'}, // makes all src relative  single level
 			]
 		  }
